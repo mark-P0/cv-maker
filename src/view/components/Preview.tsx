@@ -1,6 +1,39 @@
 import React from 'react';
 import { PersonalLayout } from './PersonalLayout.js';
 import { CVData } from '../../model/cv-data.js';
+import { UpdateDataEvent } from '../../controller/events.js';
+import { set } from 'lodash-es';
+
+function parseValueUpdate(accessor: string, value: string) {
+  if (accessor.includes('email')) {
+    if (value === '') return undefined;
+    return new URL(`mailto:${value}`);
+  }
+
+  if (accessor.includes('links')) {
+    if (value === '') return undefined;
+
+    try {
+      return new URL(value);
+    } catch {
+      null;
+    }
+    try {
+      return new URL(`https://${value}`);
+    } catch {
+      null;
+    }
+    try {
+      return new URL(`https://${value}.com`);
+    } catch {
+      null;
+    }
+
+    return undefined;
+  }
+
+  return value;
+}
 
 export class Preview extends React.Component {
   state: { data: CVData } = {
@@ -50,8 +83,15 @@ export class Preview extends React.Component {
     }).observe(target);
   }
 
+  #UpdateDataSubscriber = async ({ accessor, value }: { accessor: string; value: string }) => {
+    const { data } = this.state;
+    set(data, accessor, parseValueUpdate(accessor, value));
+    this.setState({ data });
+  };
+
   componentDidMount() {
     this.#scaleAndObserveResizes();
+    UpdateDataEvent.subscribe(this.#UpdateDataSubscriber);
   }
 
   render() {

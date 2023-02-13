@@ -1,10 +1,23 @@
 import React from 'react';
+import { UpdateDataEvent } from '../../controller/events.js';
+
+/**
+ * So many type casts...
+ */
+const handleFieldUpdates: React.ChangeEventHandler = function (event) {
+  const target = event.target as HTMLInputElement;
+
+  const accessor = target.getAttribute('name') as string;
+  const value = target.value;
+
+  UpdateDataEvent.publish({ accessor, value });
+};
 
 function Field(type: string, label: string, name: string) {
   return (
     <label className="flex flex-col gap-1">
       <span className="text-xs tracking-wide">{label}</span>
-      <input className="px-1 flex-1" name={name} type={type} />
+      <input className="px-1" name={name} type={type} onChange={handleFieldUpdates} />
     </label>
   );
 }
