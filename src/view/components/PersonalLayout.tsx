@@ -1,5 +1,5 @@
 import React from 'react';
-import { CVData } from '../../model/cv-data.js';
+import { CVData, DateRange } from '../../model/cv-data.js';
 
 /**
  * Non-breaking space alias.
@@ -9,6 +9,26 @@ import { CVData } from '../../model/cv-data.js';
  * https://stackoverflow.com/questions/37909134/nbsp-jsx-not-working
  */
 const nbsp = '\u00A0';
+
+const shortMonthFormatter = new Intl.DateTimeFormat('en-us', { month: 'short' });
+function parseDate(date?: Date) {
+  if (!date) return 'present';
+
+  const year = date.getFullYear();
+  const shortMonth = shortMonthFormatter.format(date);
+  return `${shortMonth} ${year}`;
+}
+function parseDateRange(date: DateRange): string {
+  const { from, to } = date;
+  if (!(from && to)) return nbsp;
+
+  return `${parseDate(from)} to ${parseDate(from)}`;
+}
+
+function parseDescription(description: string[]) {
+  const toDisplay = description.length > 0 ? description.slice(0, 3) : [nbsp];
+  return toDisplay.map((desc, idx) => <li key={idx}>{desc}</li>);
+}
 
 /**
  * Preferred over `list-style-type` for ease of styling
@@ -51,6 +71,52 @@ class BulletedList extends React.Component<
     const classes = `${className} ${display} ${wrap} ${bulletClasses} [&>*]:flex`;
 
     return <ul className={classes}>{children}</ul>;
+  }
+}
+
+class Chunk extends React.Component<React.PropsWithChildren<{ title: string }>> {
+  render() {
+    const { title, children } = this.props;
+
+    return (
+      <section>
+        <h2 className="text-[18pt] uppercase font-bold tracking-widest text-center border-b-2 border-black mb-3">
+          {title}
+        </h2>
+        <div className="flex flex-col gap-[16pt]">{children}</div>
+      </section>
+    );
+  }
+}
+
+class ChunkRow extends React.Component<
+  React.PropsWithChildren<{
+    title: string;
+    subtitle: string;
+    dates: string;
+  }>
+> {
+  render() {
+    const { title, subtitle, dates, children } = this.props;
+
+    return (
+      <section className="grid grid-cols-5 px-[16pt]">
+        <div className="text-right">
+          <h3 className="text-[12pt] font-bold tracking-tight">{title || nbsp}</h3>
+          <p className="text-[10pt]">{subtitle || nbsp}</p>
+          <p className="text-[8pt]">{dates || nbsp}</p>
+        </div>
+        <BulletedList
+          orientation="vertical"
+          hasFirstBullet={true}
+          isBulletWide={true}
+          canWrapItems={true}
+          className="text-[10pt] col-span-4"
+        >
+          {children}
+        </BulletedList>
+      </section>
+    );
   }
 }
 
@@ -99,10 +165,30 @@ export class PersonalLayout extends React.Component<{ data: CVData }> {
       </header>
     );
   }
+  get #career() {
+    const { data } = this.props;
+    const { career } = data;
+    if (!career) return null;
+
+    const rows = career.map(({ company, position, jobDescription, date }, idx) => {
+      return (
+        <ChunkRow key={idx} title={position} subtitle={company} dates={parseDateRange(date)}>
+          {parseDescription(jobDescription)}
+        </ChunkRow>
+      );
+    });
+
+    return <Chunk title="Experience">{rows}</Chunk>;
+  }
 
   render() {
     const margin = 'p-[0.5in]';
 
-    return <div className={`${margin} flex flex-col justify-evenly h-full`}>{this.#general}</div>;
+    return (
+      <div className={`${margin} flex flex-col justify-evenly h-full`}>
+        {this.#general}
+        {this.#career}
+      </div>
+    );
   }
 }
