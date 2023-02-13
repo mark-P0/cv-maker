@@ -170,7 +170,7 @@ export class PersonalLayout extends React.Component<{ data: CVData }> {
   get #career() {
     const { data } = this.props;
     const { career } = data;
-    if (!career) return null;
+    if (career.length === 0) return null;
 
     const rows = career.map(({ company, position, jobDescription, date }, idx) => {
       return (
@@ -182,6 +182,21 @@ export class PersonalLayout extends React.Component<{ data: CVData }> {
 
     return <Chunk title="Experience">{rows}</Chunk>;
   }
+  get #projects() {
+    const { data } = this.props;
+    const { projects } = data;
+    if (projects.length === 0) return null;
+
+    const rows = projects.map(({ name, type, description, date }, idx) => {
+      return (
+        <ChunkRow key={idx} title={name} subtitle={type} dates={parseDateRange(date)}>
+          {parseDescription(description)}
+        </ChunkRow>
+      );
+    });
+
+    return <Chunk title="Projects">{rows}</Chunk>;
+  }
 
   render() {
     const margin = 'p-[0.5in]';
@@ -190,6 +205,7 @@ export class PersonalLayout extends React.Component<{ data: CVData }> {
       <div className={`${margin} flex flex-col justify-evenly h-full font-['GWFH_Cabin']`}>
         {this.#general}
         {this.#career}
+        {this.#projects}
       </div>
     );
   }
