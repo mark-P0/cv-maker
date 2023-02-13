@@ -122,9 +122,7 @@ class ChunkRow extends React.Component<
   }
 }
 
-function SocialLink(link?: URL) {
-  if (!link) return nbsp;
-
+function SocialLink(link: URL) {
   const { href, hostname, pathname } = link;
 
   return (
@@ -139,9 +137,14 @@ export class PersonalLayout extends React.Component<{ data: CVData }> {
     const { data } = this.props;
     const { general } = data;
     const { name, location, contact } = general;
+    const { email, links, number } = contact;
 
-    const { email, links } = contact;
-    const socials = [email, ...links.slice(0, 2)].map((link, idx) => {
+    const analogContacts = [number, location].map((detail, idx) => {
+      if (!detail) return null;
+      return <li key={idx}>{detail}</li>;
+    });
+    const digitalContacts = [email, ...links.slice(0, 2)].map((link, idx) => {
+      if (!link) return null;
       return <li key={idx}>{SocialLink(link)}</li>;
     });
 
@@ -155,8 +158,7 @@ export class PersonalLayout extends React.Component<{ data: CVData }> {
           canWrapItems={false}
           className="text-[14pt] font-['GWFH_EBGaramond']"
         >
-          <li>{contact.number}</li>
-          <li>{location}</li>
+          {analogContacts}
         </BulletedList>
         <BulletedList
           orientation="horizontal"
@@ -165,7 +167,7 @@ export class PersonalLayout extends React.Component<{ data: CVData }> {
           canWrapItems={false}
           className="text-[10pt] font-['GWFH_EBGaramond']"
         >
-          {socials}
+          {digitalContacts}
         </BulletedList>
       </header>
     );
