@@ -1,6 +1,28 @@
 import React from 'react';
+import { PersonalLayout } from './PersonalLayout.js';
+import { CVData } from '../../model/cv-data.js';
 
 export class Preview extends React.Component {
+  state: { data: CVData } = {
+    data: {
+      general: {
+        name: '',
+        location: '',
+        contact: {
+          email: undefined,
+          number: '',
+          links: [],
+        },
+      },
+      career: [],
+      projects: [],
+      skills: {
+        hard: [],
+        soft: [],
+      },
+    },
+  };
+
   #targetAppearance = React.createRef<HTMLDivElement>();
   #elementToScale = React.createRef<HTMLDivElement>();
 
@@ -32,6 +54,8 @@ export class Preview extends React.Component {
   }
 
   render() {
+    const { data } = this.state;
+
     return (
       <div className="h-full w-full bg-neutral-200 grid place-items-center p-5">
         <div
@@ -42,7 +66,7 @@ export class Preview extends React.Component {
             ref={this.#elementToScale}
             className="absolute origin-top-left w-[8.5in] h-[11in] bg-white"
           >
-            <code className="text-[16pt]">preview-layout</code>
+            <PersonalLayout data={data} />
           </div>
         </div>
       </div>
