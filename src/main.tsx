@@ -1,6 +1,7 @@
 import './view/tailwind.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import { Preview } from './view/components/Preview.js';
 
 class App extends React.Component {
   render() {
@@ -9,9 +10,7 @@ class App extends React.Component {
         <div className="col-span-2 bg-gray-500">
           <code>input-fields</code>
         </div>
-        <div className="bg-neutral-500">
-          <code>output-preview</code>
-        </div>
+        <Preview />
       </div>
     );
   }
