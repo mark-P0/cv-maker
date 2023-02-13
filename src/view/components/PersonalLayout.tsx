@@ -225,6 +225,53 @@ export class PersonalLayout extends React.Component<{ data: CVData }> {
 
     return <Chunk title="Education">{rows}</Chunk>;
   }
+  get #skills() {
+    const { data } = this.props;
+    const { skills } = data;
+    const { hard, soft } = skills;
+    if (hard.length === 0 && soft.length === 0) return null;
+
+    const addlSkills =
+      hard.length > 0 ? (
+        <Chunk title="Additional Skills">
+          <BulletedList
+            orientation="horizontal"
+            hasFirstBullet={false}
+            isBulletWide={false}
+            canWrapItems={true}
+            className="text-[10pt] justify-center px-[32pt]"
+          >
+            {hard.map((skill, idx) => (
+              <li key={idx}>{skill}</li>
+            ))}
+          </BulletedList>
+        </Chunk>
+      ) : null;
+
+    const personalAttrs =
+      soft.length > 0 ? (
+        <Chunk title="Personal Attributes">
+          <BulletedList
+            orientation="horizontal"
+            hasFirstBullet={false}
+            isBulletWide={false}
+            canWrapItems={true}
+            className="text-[10pt] justify-center px-[32pt]"
+          >
+            {soft.map((skill, idx) => (
+              <li key={idx}>{skill}</li>
+            ))}
+          </BulletedList>
+        </Chunk>
+      ) : null;
+
+    return (
+      <div className="flex [&>*]:flex-1 gap-[32pt]">
+        {addlSkills}
+        {personalAttrs}
+      </div>
+    );
+  }
 
   render() {
     const margin = 'p-[0.5in]';
@@ -235,6 +282,7 @@ export class PersonalLayout extends React.Component<{ data: CVData }> {
         {this.#career}
         {this.#projects}
         {this.#education}
+        {this.#skills}
       </div>
     );
   }
