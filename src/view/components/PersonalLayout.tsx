@@ -140,6 +140,11 @@ export class PersonalLayout extends React.Component<{ data: CVData }> {
     const { general } = data;
     const { name, location, contact } = general;
 
+    const { email, links } = contact;
+    const socials = [email, ...links.slice(0, 2)].map((link, idx) => {
+      return <li key={idx}>{SocialLink(link)}</li>;
+    });
+
     return (
       <header className="flex flex-col items-center">
         <h1 className="text-[24pt] uppercase font-bold mb-1 tracking-wide">{name || nbsp}</h1>
@@ -160,9 +165,7 @@ export class PersonalLayout extends React.Component<{ data: CVData }> {
           canWrapItems={false}
           className="text-[10pt] font-['GWFH_EBGaramond']"
         >
-          <li>{SocialLink(contact.email)}</li>
-          <li>{SocialLink(contact.links[0])}</li>
-          <li>{SocialLink(contact.links[1])}</li>
+          {socials}
         </BulletedList>
       </header>
     );
