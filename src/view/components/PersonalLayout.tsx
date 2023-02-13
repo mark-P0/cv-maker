@@ -197,6 +197,34 @@ export class PersonalLayout extends React.Component<{ data: CVData }> {
 
     return <Chunk title="Projects">{rows}</Chunk>;
   }
+  get #education() {
+    const { data } = this.props;
+    const { education } = data;
+    if (education.length === 0) return null;
+
+    const rows = education.map(({ university, degree, year, grade }, idx) => {
+      const batch = year ? `Batch ${year.getFullYear()}` : nbsp;
+      const avg = grade ? (
+        <>
+          <br />
+          Latest Grade: <span className="text-[12pt] font-bold">{grade}</span>
+        </>
+      ) : null;
+
+      return (
+        <ChunkRow key={idx} title={degree || nbsp} subtitle={batch} dates="">
+          <li>
+            <span>
+              <span className="font-bold">{university || nbsp}</span>
+              {avg}
+            </span>
+          </li>
+        </ChunkRow>
+      );
+    });
+
+    return <Chunk title="Education">{rows}</Chunk>;
+  }
 
   render() {
     const margin = 'p-[0.5in]';
@@ -206,6 +234,7 @@ export class PersonalLayout extends React.Component<{ data: CVData }> {
         {this.#general}
         {this.#career}
         {this.#projects}
+        {this.#education}
       </div>
     );
   }
