@@ -1,0 +1,8 @@
+@font-face {
+  font-display: swap;
+  font-family: 'GWFH EBGaramond';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./eb-garamond-v26-latin-regular.woff2') format('woff2'),
+    url('./eb-garamond-v26-latin-regular.woff') format('woff');
+}

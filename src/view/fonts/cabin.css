@@ -1,0 +1,17 @@
+@font-face {
+  font-display: swap;
+  font-family: 'GWFH Cabin';
+  font-style: normal;
+  font-weight: 400;
+  src: url('./cabin-v26-latin-regular.woff2') format('woff2'),
+    url('./cabin-v26-latin-regular.woff') format('woff');
+}
+
+@font-face {
+  font-display: swap;
+  font-family: 'GWFH Cabin';
+  font-style: normal;
+  font-weight: 700;
+  src: url('./cabin-v26-latin-700.woff2') format('woff2'),
+    url('./cabin-v26-latin-700.woff') format('woff');
+}

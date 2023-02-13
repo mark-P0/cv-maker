@@ -1,5 +1,7 @@
 import React from 'react';
 import { CVData, DateRange } from '../../model/cv-data.js';
+import '../fonts/cabin.css';
+import '../fonts/eb-garamond.css';
 
 /**
  * Non-breaking space alias.
@@ -103,7 +105,7 @@ class ChunkRow extends React.Component<
       <section className="grid grid-cols-5 px-[16pt]">
         <div className="text-right">
           <h3 className="text-[12pt] font-bold tracking-tight">{title || nbsp}</h3>
-          <p className="text-[10pt]">{subtitle || nbsp}</p>
+          <p className="text-[10pt] font-['GWFH_EBGaramond']">{subtitle || nbsp}</p>
           <p className="text-[8pt]">{dates || nbsp}</p>
         </div>
         <BulletedList
@@ -146,7 +148,7 @@ export class PersonalLayout extends React.Component<{ data: CVData }> {
           hasFirstBullet={false}
           isBulletWide={false}
           canWrapItems={false}
-          className="text-[14pt]"
+          className="text-[14pt] font-['GWFH_EBGaramond']"
         >
           <li>{contact.number}</li>
           <li>{location}</li>
@@ -156,7 +158,7 @@ export class PersonalLayout extends React.Component<{ data: CVData }> {
           hasFirstBullet={false}
           isBulletWide={false}
           canWrapItems={false}
-          className="text-[10pt]"
+          className="text-[10pt] font-['GWFH_EBGaramond']"
         >
           <li>{SocialLink(contact.email)}</li>
           <li>{SocialLink(contact.links[0])}</li>
@@ -185,7 +187,7 @@ export class PersonalLayout extends React.Component<{ data: CVData }> {
     const margin = 'p-[0.5in]';
 
     return (
-      <div className={`${margin} flex flex-col justify-evenly h-full`}>
+      <div className={`${margin} flex flex-col justify-evenly h-full font-['GWFH_Cabin']`}>
         {this.#general}
         {this.#career}
       </div>

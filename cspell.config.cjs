@@ -1,5 +1,6 @@
 /* prettier-ignore */
 const words = `
+gwfh
 `.trim().split('\n');
 
 /** @type {import('@cspell/cspell-types').CSpellSettings} */
