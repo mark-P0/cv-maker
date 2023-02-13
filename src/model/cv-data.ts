@@ -20,7 +20,7 @@ export type CVData = {
       links: URL[];
     };
   };
-  career?: {
+  career: {
     company: string;
     position: string;
     jobDescription: string[];
@@ -29,17 +29,17 @@ export type CVData = {
      */
     date: DateRange;
   }[];
-  projects?: {
+  projects: {
     name: string;
     type: string;
     description: string[];
     date: DateRange;
   }[];
-  skills?: {
+  skills: {
     hard: string[];
     soft: string[];
   };
-  education?: {
+  education: {
     university: string;
     degree: string;
     year?: Date;

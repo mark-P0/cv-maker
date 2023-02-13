@@ -20,6 +20,7 @@ export class Preview extends React.Component {
         hard: [],
         soft: [],
       },
+      education: [],
     },
   };
 
