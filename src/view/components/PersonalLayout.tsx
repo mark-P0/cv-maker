@@ -143,7 +143,7 @@ export class PersonalLayout extends React.Component<{ data: CVData }> {
       if (!detail) return null;
       return <li key={idx}>{detail}</li>;
     });
-    const digitalContacts = [email, ...links.slice(0, 2)].map((link, idx) => {
+    const digitalContacts = [email, ...links].map((link, idx) => {
       if (!link) return null;
       return <li key={idx}>{SocialLink(link)}</li>;
     });
