@@ -19,7 +19,7 @@ function onFieldRemove(currentFieldCt: number) {
 const descriptions = (
   <MultipleFields
     label="Description"
-    fieldGroupClasses="grid grid-cols-2 gap-3"
+    fieldGroupClasses="grid gap-3"
     fieldTemplate={fieldTemplate}
     onFieldRemove={onFieldRemove}
   />
