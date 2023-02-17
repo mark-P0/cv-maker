@@ -5,11 +5,11 @@ import { UpdateDataEvent, DeleteArrayDataEvent } from '../../../controller/event
 
 let rowIdx = 0;
 
-function fieldTemplate(key: number) {
+function descriptionFieldTemplate(key: number) {
   return Field('text', `career[${rowIdx}].jobDescription[${key}]`, key);
 }
 
-function onFieldRemove(currentFieldCt: number) {
+function handleDescriptionRemove(currentFieldCt: number) {
   const idx = currentFieldCt - 1;
   const accessor = `career[${rowIdx}].jobDescription[${idx}]`;
   const value = '';
@@ -20,12 +20,12 @@ const descriptions = (
   <MultipleFields
     label="Description"
     fieldGroupClasses="grid gap-3"
-    fieldTemplate={fieldTemplate}
-    onFieldRemove={onFieldRemove}
+    fieldTemplate={descriptionFieldTemplate}
+    onFieldRemove={handleDescriptionRemove}
   />
 );
 
-function onRowAdd(currentRowCt: number) {
+function handleWorkAdd(currentRowCt: number) {
   rowIdx = currentRowCt;
 
   const accessor = `career[${currentRowCt}]`;
@@ -38,7 +38,7 @@ function onRowAdd(currentRowCt: number) {
   UpdateDataEvent.publish({ accessor, value });
 }
 
-function onRowRemove(currentRowCt: number) {
+function handleWorkRemove(currentRowCt: number) {
   rowIdx--;
 
   const accessor = 'career';
@@ -46,7 +46,7 @@ function onRowRemove(currentRowCt: number) {
   DeleteArrayDataEvent.publish({ accessor, idx });
 }
 
-function rowTemplate(key: number) {
+function workRowTemplate(key: number) {
   return (
     <div key={key} className="grid gap-3">
       <div className="grid grid-cols-2 gap-3">
@@ -63,9 +63,9 @@ function rowTemplate(key: number) {
 export const WorkSection = (
   <FieldSection
     title="Work Experience"
-    rowTemplate={rowTemplate}
+    rowTemplate={workRowTemplate}
     hasMultipleRows
-    onRowAdd={onRowAdd}
-    onRowRemove={onRowRemove}
+    onRowAdd={handleWorkAdd}
+    onRowRemove={handleWorkRemove}
   />
 );

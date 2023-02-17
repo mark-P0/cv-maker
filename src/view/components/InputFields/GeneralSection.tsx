@@ -3,11 +3,11 @@ import { Field, LabelledField, MultipleFields } from './Field.js';
 import { FieldSection } from './FieldSection.js';
 import { UpdateDataEvent } from '../../../controller/events.js';
 
-function fieldTemplate(key: number) {
+function socialFieldTemplate(key: number) {
   return Field('text', `general.contact.links[${key}]`, key);
 }
 
-function onFieldRemove(currentFieldCt: number) {
+function handleSocialRemove(currentFieldCt: number) {
   const idx = currentFieldCt - 1;
   const accessor = `general.contact.links[${idx}]`;
   const value = '';
@@ -18,12 +18,12 @@ const socials = (
   <MultipleFields
     label="Socials"
     fieldGroupClasses="grid grid-cols-2 gap-3"
-    fieldTemplate={fieldTemplate}
-    onFieldRemove={onFieldRemove}
+    fieldTemplate={socialFieldTemplate}
+    onFieldRemove={handleSocialRemove}
   />
 );
 
-function rowTemplate(key: number) {
+function generalRowTemplate(key: number) {
   return (
     <div key={key} className="grid gap-3">
       <div className="grid grid-cols-2 gap-3">
@@ -38,6 +38,6 @@ function rowTemplate(key: number) {
 }
 
 export const GeneralSection = (
-  <FieldSection title="" rowTemplate={rowTemplate} />
+  <FieldSection title="" rowTemplate={generalRowTemplate} />
   // <FieldSection title="General Information" rowTemplate={rowTemplate} />
 );
