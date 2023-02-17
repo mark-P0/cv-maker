@@ -111,14 +111,14 @@ export class Preview extends React.Component {
     const { data } = this.state;
 
     return (
-      <div className="h-full w-full bg-neutral-200 grid place-items-center p-5">
+      <div className="h-full w-full overflow-hidden bg-neutral-200 grid place-items-center p-5">
         <div
           ref={this.#targetAppearance}
-          className="relative w-full aspect-[8.5/11] overflow-hidden bg-transparent shadow-xl"
+          className="relative w-full aspect-[8.5/11] bg-transparent shadow-xl"
         >
           <div
             ref={this.#elementToScale}
-            className="absolute origin-top-left w-[8.5in] h-[11in] bg-white"
+            className="absolute origin-top-left w-[8.5in] h-[11in] overflow-hidden bg-white"
           >
             <PersonalLayout data={data} />
           </div>

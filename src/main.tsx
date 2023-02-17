@@ -8,8 +8,8 @@ import { InputFields } from './view/components/InputFields.js';
 class App extends React.Component {
   render() {
     return (
-      <div className="h-screen w-screen grid grid-cols-[3fr_2fr]">
-        <div className="max-h-full overflow-hidden flex flex-col [&>*:nth-child(2)]:flex-1">
+      <div className="h-screen grid grid-cols-[5fr_3fr]">
+        <div className="h-full overflow-hidden flex flex-col [&>*:nth-child(2)]:flex-1">
           <TopBar />
           <InputFields />
         </div>
