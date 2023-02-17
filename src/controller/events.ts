@@ -16,4 +16,5 @@ class Event<T> {
   }
 }
 
-export const UpdateDataEvent = new Event<{ accessor: string; value: string }>();
+export const UpdateDataEvent = new Event<{ accessor: string; value: unknown }>();
+export const DeleteArrayDataEvent = new Event<{ accessor: string; idx: number }>();

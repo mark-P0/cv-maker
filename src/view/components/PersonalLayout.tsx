@@ -22,14 +22,16 @@ function parseDate(date?: Date) {
 }
 function parseDateRange(date: DateRange): string {
   const { from, to } = date;
-  if (!(from && to)) return nbsp;
+  if (!from) return nbsp;
 
-  return `${parseDate(from)} to ${parseDate(from)}`;
+  return `${parseDate(from)} to ${parseDate(to)}`;
 }
 
 function parseDescription(description: string[]) {
-  const toDisplay = description.length > 0 ? description.slice(0, 3) : [nbsp];
-  return toDisplay.map((desc, idx) => <li key={idx}>{desc}</li>);
+  return description.map((desc, idx) => {
+    if (!desc) return null;
+    return <li key={idx}>{desc}</li>;
+  });
 }
 
 /**

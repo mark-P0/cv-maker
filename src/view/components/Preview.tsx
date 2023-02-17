@@ -1,10 +1,10 @@
 import React from 'react';
 import { PersonalLayout } from './PersonalLayout.js';
 import { CVData } from '../../model/cv-data.js';
-import { UpdateDataEvent } from '../../controller/events.js';
-import { set } from 'lodash-es';
+import { UpdateDataEvent, DeleteArrayDataEvent } from '../../controller/events.js';
+import { set, get } from 'lodash-es';
 
-function parseValueUpdate(accessor: string, value: string) {
+function parseValueUpdate(accessor: string, value: unknown) {
   if (accessor.includes('email')) {
     if (value === '') return undefined;
     return new URL(`mailto:${value}`);
@@ -14,7 +14,7 @@ function parseValueUpdate(accessor: string, value: string) {
     if (value === '') return undefined;
 
     try {
-      return new URL(value);
+      return new URL(`${value}`);
     } catch {
       null;
     }
@@ -30,6 +30,10 @@ function parseValueUpdate(accessor: string, value: string) {
     }
 
     return undefined;
+  }
+
+  if (accessor.includes('date') || accessor.includes('year')) {
+    return new Date(value as string);
   }
 
   return value;
@@ -83,15 +87,24 @@ export class Preview extends React.Component {
     }).observe(target);
   }
 
-  #UpdateDataSubscriber = async ({ accessor, value }: { accessor: string; value: string }) => {
+  #UpdateDataSubscriber = async ({ accessor, value }: { accessor: string; value: unknown }) => {
     const { data } = this.state;
     set(data, accessor, parseValueUpdate(accessor, value));
+    this.setState({ data });
+  };
+
+  #DeleteArrayDataSubscriber = async ({ accessor, idx }: { accessor: string; idx: number }) => {
+    const { data } = this.state;
+    const array = get(data, accessor) as unknown[];
+    const newArray = array.filter((_, i) => i !== idx);
+    set(data, accessor, newArray);
     this.setState({ data });
   };
 
   componentDidMount() {
     this.#scaleAndObserveResizes();
     UpdateDataEvent.subscribe(this.#UpdateDataSubscriber);
+    DeleteArrayDataEvent.subscribe(this.#DeleteArrayDataSubscriber);
   }
 
   render() {
