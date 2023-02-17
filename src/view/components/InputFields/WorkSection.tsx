@@ -1,6 +1,7 @@
 import React from 'react';
 import { Field, LabelledField, MultipleFields } from './Field.js';
 import { FieldSection } from './FieldSection.js';
+import { CVData } from '../../../model/cv-data.js';
 import { UpdateDataEvent, DeleteArrayDataEvent } from '../../../controller/events.js';
 
 let rowIdx = 0;
@@ -29,7 +30,7 @@ function handleWorkAdd(currentRowCt: number) {
   rowIdx = currentRowCt;
 
   const accessor = `career[${currentRowCt}]`;
-  const value = {
+  const value: CVData['career'][number] = {
     company: '',
     position: '',
     jobDescription: [],
