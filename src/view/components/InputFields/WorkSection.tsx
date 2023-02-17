@@ -55,7 +55,6 @@ function rowTemplate(key: number) {
         {LabelledField('From', 'date', `career[${key}].date.from`)}
         {LabelledField('To', 'date', `career[${key}].date.to`)}
       </div>
-      {/* <DescriptionFields rowIdx={key} /> */}
       {descriptions}
     </div>
   );
