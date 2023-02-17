@@ -1,6 +1,7 @@
 import React from 'react';
 import { GeneralSection } from './InputFields/GeneralSection.js';
 import { WorkSection } from './InputFields/WorkSection.js';
+import { ProjectSection } from './InputFields/ProjectSection.js';
 
 export class InputFields extends React.Component {
   render() {
@@ -9,6 +10,7 @@ export class InputFields extends React.Component {
         {/* <h1 className="font-bold text-2xl">Fields</h1> */}
         {GeneralSection}
         {WorkSection}
+        {ProjectSection}
       </form>
     );
   }
