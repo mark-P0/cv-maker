@@ -9,7 +9,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="h-screen grid grid-cols-[5fr_3fr]">
-        <div className="h-full overflow-hidden flex flex-col [&>*:nth-child(2)]:flex-1">
+        <div className="h-full overflow-hidden bg-neutral-500 flex flex-col [&>*:nth-child(2)]:flex-1">
           <TopBar />
           <InputFields />
         </div>

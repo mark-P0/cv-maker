@@ -50,7 +50,7 @@ export class FieldSection extends React.Component<
 
     const header =
       title !== '' ? (
-        <div className="flex items-center gap-2 mb-2">
+        <div className="flex items-center justify-between gap-2">
           <h2 className="font-bold text-lg">{title}</h2>
           {buttons}
         </div>
@@ -58,11 +58,12 @@ export class FieldSection extends React.Component<
 
     const length = hasMultipleRows ? rowCt : 1;
     const rows = Array.from({ length }, (_, idx) => rowTemplate(idx));
+    const rowGroup = length > 0 ? <div className="grid gap-5">{rows}</div> : null;
 
     return (
-      <section>
+      <section className="bg-neutral-100 rounded-xl grid gap-2 p-4">
         {header}
-        <div className="grid gap-5">{rows}</div>
+        {rowGroup}
       </section>
     );
   }

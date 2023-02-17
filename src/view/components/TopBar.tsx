@@ -3,7 +3,7 @@ import React from 'react';
 export class TopBar extends React.Component {
   render() {
     return (
-      <div className="bg-neutral-500">
+      <div>
         <code>top-bar</code>
       </div>
     );
