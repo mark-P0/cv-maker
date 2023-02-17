@@ -1,5 +1,6 @@
 import React from 'react';
 import { Field, LabelledField } from './Field.js';
+import { FieldSection } from './FieldSection.js';
 import { IncrementDecrementButtons } from './IncrementDecrementButtons.js';
 import { UpdateDataEvent } from '../../../controller/events.js';
 
@@ -56,9 +57,8 @@ class SocialsFields extends React.Component<unknown, { fieldCt: number }> {
   }
 }
 
-export const GeneralSection = (
-  <section>
-    <h2 className="font-bold text-lg mb-2">General Information</h2>
+function rowTemplate() {
+  return (
     <div className="grid gap-3">
       <div className="grid grid-cols-2 gap-3">
         {LabelledField('Name', 'text', 'general.name')}
@@ -68,5 +68,10 @@ export const GeneralSection = (
       </div>
       <SocialsFields />
     </div>
-  </section>
+  );
+}
+
+export const GeneralSection = (
+  <FieldSection title="" rowTemplate={rowTemplate} />
+  // <FieldSection title="General Information" rowTemplate={rowTemplate} />
 );

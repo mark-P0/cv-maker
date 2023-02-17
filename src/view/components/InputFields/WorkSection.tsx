@@ -1,5 +1,6 @@
 import React from 'react';
 import { Field, LabelledField } from './Field.js';
+import { FieldSection } from './FieldSection.js';
 import { IncrementDecrementButtons } from './IncrementDecrementButtons.js';
 import { UpdateDataEvent, DeleteArrayDataEvent } from '../../../controller/events.js';
 
@@ -58,70 +59,43 @@ class DescriptionFields extends React.Component<{ rowIdx: number }, { fieldCt: n
   }
 }
 
-export class WorkSection extends React.Component<unknown, { rowCt: number }> {
-  #minRowCt = 0;
-  state = {
-    rowCt: this.#minRowCt,
+function onRowAdd(rowCt: number) {
+  const accessor = `career[${rowCt}]`;
+  const value = {
+    company: '',
+    position: '',
+    jobDescription: [],
+    date: {},
   };
-
-  #addRow = () => {
-    const { rowCt } = this.state;
-
-    const accessor = `career[${rowCt}]`;
-    const value = {
-      company: '',
-      position: '',
-      jobDescription: [],
-      date: {},
-    };
-    UpdateDataEvent.publish({ accessor, value });
-
-    this.setState({
-      rowCt: rowCt + 1,
-    });
-  };
-
-  #removeRow = () => {
-    const { rowCt } = this.state;
-
-    const accessor = 'career';
-    const idx = rowCt - 1;
-    DeleteArrayDataEvent.publish({ accessor, idx });
-
-    this.setState({
-      rowCt: rowCt - 1,
-    });
-  };
-
-  render() {
-    const { rowCt } = this.state;
-    const disableDecrement = rowCt === this.#minRowCt;
-
-    const rows = Array.from({ length: rowCt }, (_, idx) => (
-      <div key={idx} className="grid gap-3">
-        <div className="grid grid-cols-2 gap-3">
-          {LabelledField('Company', 'text', `career[${idx}].company`)}
-          {LabelledField('Position', 'text', `career[${idx}].position`)}
-          {LabelledField('From', 'date', `career[${idx}].date.from`)}
-          {LabelledField('To', 'date', `career[${idx}].date.to`)}
-        </div>
-        <DescriptionFields rowIdx={idx} />
-      </div>
-    ));
-
-    return (
-      <section>
-        <div className="flex items-center gap-2 mb-2">
-          <h2 className="font-bold text-lg">Work Experience</h2>
-          <IncrementDecrementButtons
-            onIncrease={this.#addRow}
-            onDecrease={this.#removeRow}
-            disableDecrement={disableDecrement}
-            className="flex items-center gap-1 h-4"
-          />
-        </div>
-        <div className="grid gap-5">{rows}</div>
-      </section>
-    );
-  }
+  UpdateDataEvent.publish({ accessor, value });
 }
+
+function onRowRemove(rowCt: number) {
+  const accessor = 'career';
+  const idx = rowCt - 1;
+  DeleteArrayDataEvent.publish({ accessor, idx });
+}
+
+function rowTemplate(key: number) {
+  return (
+    <div key={key} className="grid gap-3">
+      <div className="grid grid-cols-2 gap-3">
+        {LabelledField('Company', 'text', `career[${key}].company`)}
+        {LabelledField('Position', 'text', `career[${key}].position`)}
+        {LabelledField('From', 'date', `career[${key}].date.from`)}
+        {LabelledField('To', 'date', `career[${key}].date.to`)}
+      </div>
+      <DescriptionFields rowIdx={key} />
+    </div>
+  );
+}
+
+export const WorkSection = (
+  <FieldSection
+    title="Work Experience"
+    rowTemplate={rowTemplate}
+    hasMultipleRows
+    onRowAdd={onRowAdd}
+    onRowRemove={onRowRemove}
+  />
+);
