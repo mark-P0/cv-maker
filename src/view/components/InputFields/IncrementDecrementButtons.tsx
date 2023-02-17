@@ -12,7 +12,7 @@ export class IncrementDecrementButtons extends React.Component<
     const { onIncrease, onDecrease, disableDecrement, ...divProps } = this.props;
 
     const decrement = disableDecrement ? (
-      <button className="aspect-square h-full opacity-50" type="button" disabled>
+      <button className="aspect-square h-full opacity-25" type="button" disabled>
         <MinusCircleIcon />
       </button>
     ) : (
