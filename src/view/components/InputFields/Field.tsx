@@ -43,15 +43,19 @@ export class MultipleFields extends React.Component<
     label: string;
     fieldGroupClasses: string;
     fieldTemplate: (key: number) => JSX.Element;
+    minFieldCt: number;
     onFieldAdd?: (currentFieldCt: number) => void;
     onFieldRemove?: (currentFieldCt: number) => void;
   },
   { fieldCt: number }
 > {
-  #MIN_FIELD_CT = 1 as const;
-  state = {
-    fieldCt: 1,
-  };
+  constructor(props: MultipleFields['props']) {
+    super(props);
+    const { minFieldCt } = props;
+    this.state = {
+      fieldCt: minFieldCt,
+    };
+  }
 
   #addField = () => {
     const { onFieldAdd } = this.props;
@@ -72,10 +76,10 @@ export class MultipleFields extends React.Component<
   };
 
   render() {
-    const { label, fieldGroupClasses, fieldTemplate } = this.props;
+    const { label, fieldGroupClasses, fieldTemplate, minFieldCt } = this.props;
     const { fieldCt } = this.state;
 
-    const disableDecrement = fieldCt == this.#MIN_FIELD_CT;
+    const disableDecrement = fieldCt === minFieldCt;
     const fields = Array.from({ length: fieldCt }, (_, idx) => fieldTemplate(idx));
 
     return (

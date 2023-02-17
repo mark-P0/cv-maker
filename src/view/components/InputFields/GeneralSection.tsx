@@ -19,6 +19,7 @@ const socials = (
     label="Socials"
     fieldGroupClasses="grid grid-cols-2 gap-3"
     fieldTemplate={socialFieldTemplate}
+    minFieldCt={1}
     onFieldRemove={handleSocialRemove}
   />
 );

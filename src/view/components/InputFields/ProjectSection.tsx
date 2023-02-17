@@ -22,6 +22,7 @@ const descriptions = (
     label="Description"
     fieldGroupClasses="grid gap-3"
     fieldTemplate={descriptionFieldTemplate}
+    minFieldCt={1}
     onFieldRemove={handleDescriptionRemove}
   />
 );
