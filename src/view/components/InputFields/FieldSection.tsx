@@ -44,7 +44,7 @@ export class FieldSection extends React.Component<
         onIncrease={this.#addRow}
         onDecrease={this.#removeRow}
         disableDecrement={disableDecrement}
-        className="flex items-center gap-1 h-4"
+        className="flex items-center gap-2 h-5"
       />
     ) : null;
 
