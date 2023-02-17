@@ -58,7 +58,8 @@ export class FieldSection extends React.Component<
 
     const length = hasMultipleRows ? rowCt : 1;
     const rows = Array.from({ length }, (_, idx) => rowTemplate(idx));
-    const rowGroup = length > 0 ? <div className="grid gap-5">{rows}</div> : null;
+    const rowClasses = hasMultipleRows ? '[&>*]:bg-neutral-200 [&>*]:p-4 [&>*]:rounded-lg' : '';
+    const rowGroup = length > 0 ? <div className={`${rowClasses} grid gap-5`}>{rows}</div> : null;
 
     return (
       <section className="bg-neutral-100 rounded-xl grid gap-2 p-4">
