@@ -3,6 +3,7 @@ import { GeneralSection } from './InputFields/GeneralSection.js';
 import { WorkSection } from './InputFields/WorkSection.js';
 import { ProjectSection } from './InputFields/ProjectSection.js';
 import { EducationSection } from './InputFields/EducationSection.js';
+import { SkillsSection } from './InputFields/SkillsSection.js';
 
 export class InputFields extends React.Component {
   render() {
@@ -13,6 +14,7 @@ export class InputFields extends React.Component {
         {WorkSection}
         {ProjectSection}
         {EducationSection}
+        {SkillsSection}
       </form>
     );
   }
