@@ -1,6 +1,6 @@
 import React from 'react';
-import { PlusCircleIcon, MinusCircleIcon } from '@heroicons/react/24/outline';
 import { Field, LabelledField } from './Field.js';
+import { IncrementDecrementButtons } from './IncrementDecrementButtons.js';
 import { UpdateDataEvent } from '../../../controller/events.js';
 
 class SocialsFields extends React.Component<unknown, { fieldCt: number }> {
@@ -37,25 +37,18 @@ class SocialsFields extends React.Component<unknown, { fieldCt: number }> {
       return Field('text', `general.contact.links[${idx}]`, idx);
     });
 
-    const removeButton =
-      fieldCt == this.#minFieldCt ? (
-        <button className="aspect-square h-full opacity-50" type="button" disabled>
-          <MinusCircleIcon />
-        </button>
-      ) : (
-        <button className="aspect-square h-full" type="button" onClick={this.#removeField}>
-          <MinusCircleIcon />
-        </button>
-      );
+    const disableDecrement = fieldCt == this.#minFieldCt;
 
     return (
       <section className="flex flex-col gap-1 select-none">
         <div className="flex items-center gap-1.5">
           <h3 className="text-xs tracking-wide">Socials</h3>
-          <button className="aspect-square h-full" type="button" onClick={this.#addField}>
-            <PlusCircleIcon />
-          </button>
-          {removeButton}
+          <IncrementDecrementButtons
+            onIncrease={this.#addField}
+            onDecrease={this.#removeField}
+            disableDecrement={disableDecrement}
+            className="flex items-center gap-1 h-3"
+          />
         </div>
         <div className="grid grid-cols-2 gap-3">{fields}</div>
       </section>
