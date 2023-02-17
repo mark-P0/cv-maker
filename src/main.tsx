@@ -1,3 +1,4 @@
+import './view/scrollbars.css';
 import './view/tailwind.css';
 import React from 'react';
 import ReactDOM from 'react-dom/client';

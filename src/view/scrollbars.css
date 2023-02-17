@@ -1,0 +1,41 @@
+:root {
+  /*  About the same as the standardized `scrollbar-width: thin;`
+   */
+  --scrollbar-width-thin: 0.5rem;
+
+  /*  About the same as Firefox' default (thin) colors
+   */
+  --scrollbar-color-thumb: darkgray;
+  --scrollbar-color-track: dimgray;
+}
+
+/*  Normalize scrollbar styles
+ */
+.scrollbar {
+  scrollbar-color: var(--scrollbar-color-thumb) var(--scrollbar-color-track);
+}
+.scrollbar::-webkit-scrollbar-thumb {
+  background-color: var(--scrollbar-color-thumb);
+}
+.scrollbar::-webkit-scrollbar-track {
+  background-color: var(--scrollbar-color-track);
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+}
+.scrollbar-thin::-webkit-scrollbar {
+  width: var(--scrollbar-width-thin);
+  max-width: var(--scrollbar-width-thin);
+  min-width: var(--scrollbar-width-thin);
+}
+
+/*  https://stackoverflow.com/questions/16670931/hide-scroll-bar-but-while-still-being-able-to-scroll
+ */
+.scrollbar-none {
+  -ms-overflow-style: none; /* Internet Explorer 10+ */
+  scrollbar-width: none; /* Firefox */
+}
+.scrollbar-none::-webkit-scrollbar {
+  display: none; /* Safari and Chrome */
+}
