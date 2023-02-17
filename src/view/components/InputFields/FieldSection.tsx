@@ -19,19 +19,19 @@ export class FieldSection extends React.Component<
   #addRow = () => {
     const { onRowAdd } = this.props;
     const { rowCt } = this.state;
+    if (onRowAdd) onRowAdd(rowCt);
     this.setState({
       rowCt: rowCt + 1,
     });
-    if (onRowAdd) onRowAdd(rowCt);
   };
 
   #removeRow = () => {
     const { onRowRemove } = this.props;
     const { rowCt } = this.state;
+    if (onRowRemove) onRowRemove(rowCt);
     this.setState({
       rowCt: rowCt - 1,
     });
-    if (onRowRemove) onRowRemove(rowCt);
   };
 
   render() {
@@ -62,7 +62,7 @@ export class FieldSection extends React.Component<
     return (
       <section>
         {header}
-        <div>{rows}</div>
+        <div className="grid gap-5">{rows}</div>
       </section>
     );
   }
